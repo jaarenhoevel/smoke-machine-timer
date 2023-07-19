@@ -41,18 +41,18 @@ void Controller::process() {
     if (millis() - this->lastUpdate < UPDATE_INTERVAL) return;
     
     switch (this->mode) {
-    case Controller::Mode::MAX_OUTPUT:
-        this->machine->activate();
-        break;
+        case Controller::Mode::MAX_OUTPUT:
+            this->machine->activate();
+            break;
 
-    case Controller::Mode::TIMED_OUTPUT:
-        if (millis() - this->lastInterval > this->interval && this->machine->isReady()) {
-            this->machine->activate(this->duration);
-            this->lastInterval = millis();
-        }
-        break;
-    
-    default:
-        break;
+        case Controller::Mode::TIMED_OUTPUT:
+            if (millis() - this->lastInterval > this->interval && this->machine->isReady()) {
+                this->machine->activate(this->duration);
+                this->lastInterval = millis();
+            }
+            break;
+        
+        default:
+            break;
     }
 }
