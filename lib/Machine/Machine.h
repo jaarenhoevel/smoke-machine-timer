@@ -1,5 +1,7 @@
 #include <Arduino.h>
 
+#pragma once
+
 #define READY_SIGNAL        LOW
 #define READY_TIMEOUT       100
 

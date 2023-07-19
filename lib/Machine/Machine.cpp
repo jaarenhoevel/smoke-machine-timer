@@ -5,6 +5,10 @@ Machine::Machine(gpio_num_t triggerPin, gpio_num_t feedbackPin) {
     this->feedbackPin = feedbackPin;
 }
 
+bool Machine::isReady() {
+    return this->ready;
+}
+
 void Machine::process() {
     if (digitalRead(this->feedbackPin) == READY_SIGNAL) {
         this->lastReady = millis();
