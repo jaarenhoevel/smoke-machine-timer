@@ -3,6 +3,8 @@
 Machine::Machine(gpio_num_t triggerPin, gpio_num_t feedbackPin) {
     this->triggerPin = triggerPin;
     this->feedbackPin = feedbackPin;
+
+    digitalWrite(this->triggerPin, NO_TRIGGER_SIGNAL);
 }
 
 bool Machine::isReady() {
