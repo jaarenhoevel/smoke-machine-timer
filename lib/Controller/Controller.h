@@ -19,6 +19,9 @@ class Controller {
         void setMode(Mode mode);
         Mode getMode();
 
+        void setIgnoreReady(bool ignoreReady);
+        bool getIgnoreReady();
+
         void setInterval(uint32_t interval);
         uint32_t getInterval();
 
@@ -31,4 +34,6 @@ class Controller {
         Machine *machine;
 
         uint32_t interval, duration, lastUpdate, lastInterval;
+
+        bool ignoreReady = false;
 };

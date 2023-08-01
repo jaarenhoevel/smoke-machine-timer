@@ -4,11 +4,17 @@ Machine::Machine(gpio_num_t triggerPin, gpio_num_t feedbackPin) {
     this->triggerPin = triggerPin;
     this->feedbackPin = feedbackPin;
 
+    pinMode(this->triggerPin, OUTPUT);
+    pinMode(this->feedbackPin, INPUT);
     digitalWrite(this->triggerPin, NO_TRIGGER_SIGNAL);
 }
 
 bool Machine::isReady() {
     return this->ready;
+}
+
+bool Machine::isActive() {
+    return this->active;
 }
 
 void Machine::process() {
@@ -27,8 +33,8 @@ void Machine::process() {
     }
 }
 
-bool Machine::activate(uint32_t duration) {
-    if (!this->ready) return false;
+bool Machine::activate(uint32_t duration, bool ignoreReady) {
+    if (!ignoreReady && !this->isReady()) return false;
     
     if (duration > 0) this->activationTimeout = millis() + duration;
 

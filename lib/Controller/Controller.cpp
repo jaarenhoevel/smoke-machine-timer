@@ -10,6 +10,8 @@ Controller::Controller(Machine *machine) {
 
     this->lastUpdate = 0;
     this->lastInterval = 0;
+
+    this->ignoreReady = false;
 }
 
 void Controller::setMode(Controller::Mode mode) {
@@ -19,6 +21,14 @@ void Controller::setMode(Controller::Mode mode) {
 
 Controller::Mode Controller::getMode() {
     return this->mode;
+}
+
+void Controller::setIgnoreReady(bool ignoreReady) {
+    this->ignoreReady = ignoreReady;
+}
+
+bool Controller::getIgnoreReady() {
+    return this->ignoreReady;
 }
 
 void Controller::setInterval(uint32_t interval) {
@@ -42,12 +52,12 @@ void Controller::process() {
     
     switch (this->mode) {
         case Controller::Mode::MAX_OUTPUT:
-            this->machine->activate();
+            this->machine->activate(0, this->ignoreReady);
             break;
 
         case Controller::Mode::TIMED_OUTPUT:
-            if (millis() - this->lastInterval > this->interval && this->machine->isReady()) {
-                this->machine->activate(this->duration);
+            if (millis() - this->lastInterval > this->interval && (this->machine->isReady() || this->ignoreReady)) {
+                this->machine->activate(this->duration, this->ignoreReady);
                 this->lastInterval = millis();
             }
             break;
