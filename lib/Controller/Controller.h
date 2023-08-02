@@ -28,6 +28,8 @@ class Controller {
         void setDuration(uint32_t duration);
         uint32_t getDuration();
 
+        uint32_t getTimeUntilNextEvent();
+
         void process();
     private:
         Mode mode = Mode::OFF;

@@ -47,6 +47,18 @@ uint32_t Controller::getDuration() {
     return this->duration;
 }
 
+uint32_t Controller::getTimeUntilNextEvent() {
+    if (this->mode != Controller::Mode::TIMED_OUTPUT) return 0;
+
+    uint32_t timeSinceLastEvent = millis() - this->lastInterval;
+
+    if (timeSinceLastEvent > this->interval) return 0;
+
+    if (timeSinceLastEvent < this->duration) return this->duration - timeSinceLastEvent;
+
+    return this->interval - timeSinceLastEvent;
+}
+
 void Controller::process() {
     if (millis() - this->lastUpdate < UPDATE_INTERVAL) return;
     
