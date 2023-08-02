@@ -20,7 +20,14 @@ void Interface::process() {
 }
 
 void Interface::drawOverview() {
-    this->u8g2->setFont(u8g2_font_profont22_tr);
-    this->u8g2->drawStr(0, 22, (this->machine->isReady()) ? "Ready." : "Heating...");
-    this->u8g2->drawStr(0, 44, (this->machine->isActive()) ? "Active." : "Idle.");
+    if (this->controller->getMode() == Controller::Mode::TIMED_OUTPUT) {
+        this->u8g2->setFont(u8g2_font_logisoso32_tn);
+
+        uint32_t timeLeft = this->controller->getTimeUntilNextEvent() / 1000;
+        uint32_t secondsLeft = timeLeft % 60;
+        uint32_t minutesLeft = (timeLeft / 60) % 60;
+        
+        std::string timeStr = (minutesLeft < 10 ? "0" : "") + std::to_string(minutesLeft)+ ":" + (secondsLeft < 10 ? "0" : "") + std::to_string(secondsLeft);
+        this->u8g2->drawStr(16, 64, timeStr.c_str());
+    }
 }
