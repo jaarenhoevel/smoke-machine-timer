@@ -4,7 +4,7 @@ Interface::Interface(Controller *controller, Machine *machine, gpio_num_t dataPi
     this->controller = controller;
     this->machine = machine;
 
-    this->u8g2 = new U8G2_SSD1306_128X64_NONAME_F_SW_I2C(U8G2_R0, dataPin, clockPin); 
+    this->u8g2 = new U8G2_SSD1306_128X64_NONAME_F_HW_I2C(U8G2_R0, 255, dataPin, clockPin); 
     this->u8g2->begin();
 }
 
