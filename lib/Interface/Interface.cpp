@@ -32,10 +32,10 @@ void Interface::drawOverview() {
         this->u8g2->drawStr(64 - timeStrWidth / 2, 44, timeStr.c_str());
 
         this->u8g2->setFont(u8g2_font_helvB10_tf);
-        std::string volumeStr = std::to_string(this->controller->getOutputVolume()) + " m3/min";
+        std::string volumeStr = std::to_string(this->controller->getOutputVolume()) + " m\u00B3/s";
 
         uint8_t volumeStrWidth = this->u8g2->getStrWidth(volumeStr.c_str());
-        this->u8g2->drawStr(64 - volumeStrWidth / 2, 64, volumeStr.c_str());
+        this->u8g2->drawUTF8(64 - volumeStrWidth / 2, 64, volumeStr.c_str());
         
         if (!this->machine->isReady()) this->u8g2->drawBox(0, 0, 128, 2);
     }
