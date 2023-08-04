@@ -21,13 +21,20 @@ void Interface::process() {
 
 void Interface::drawOverview() {
     if (this->controller->getMode() == Controller::Mode::TIMED_OUTPUT) {
-        this->u8g2->setFont(u8g2_font_logisoso32_tn);
+        this->u8g2->setFont(u8g2_font_logisoso32_tf);
 
-        uint32_t timeLeft = this->controller->getTimeUntilNextEvent() / 1000;
-        uint32_t secondsLeft = timeLeft % 60;
-        uint32_t minutesLeft = (timeLeft / 60) % 60;
-        
-        std::string timeStr = (minutesLeft < 10 ? "0" : "") + std::to_string(minutesLeft)+ ":" + (secondsLeft < 10 ? "0" : "") + std::to_string(secondsLeft);
+        std::string timeStr;
+
+        if (!this->controller->getIgnoreReady() && !this->machine->isReady()) {
+            timeStr = "HEATING";
+        } else {
+            uint32_t timeLeft = this->controller->getTimeUntilNextEvent() / 1000;
+            uint32_t secondsLeft = timeLeft % 60;
+            uint32_t minutesLeft = (timeLeft / 60) % 60;
+            
+            timeStr = (minutesLeft < 10 ? "0" : "") + std::to_string(minutesLeft)+ ":" + (secondsLeft < 10 ? "0" : "") + std::to_string(secondsLeft);
+        }
+
         uint8_t timeStrWidth = this->u8g2->getStrWidth(timeStr.c_str());
         this->u8g2->drawStr(64 - timeStrWidth / 2, 44, timeStr.c_str());
 
