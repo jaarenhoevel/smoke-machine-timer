@@ -20,8 +20,8 @@ void setup() {
     interface = new Interface(controller, smokeMachine, DISPLAY_DATA_PIN, DISPLAY_CLK_PIN);
 
     controller->setMode(Controller::Mode::TIMED_OUTPUT);
-    controller->setInterval(90000);
     controller->setIgnoreReady(true);
+    controller->setOutputVolume(5);
 
     Serial.begin(9600);
 }

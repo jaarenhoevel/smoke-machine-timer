@@ -5,6 +5,7 @@
 #include <Machine.h>
 
 #define UPDATE_INTERVAL 100
+#define MAX_OUPUT_VOLUME 100
 
 class Controller {
     public:
@@ -29,6 +30,9 @@ class Controller {
         uint32_t getDuration();
 
         uint32_t getTimeUntilNextEvent();
+
+        void setOutputVolume(uint8_t volume, uint32_t interval = 60000);
+        uint8_t getOutputVolume();
 
         void process();
     private:

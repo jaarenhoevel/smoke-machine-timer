@@ -28,6 +28,10 @@ void Interface::drawOverview() {
         uint32_t minutesLeft = (timeLeft / 60) % 60;
         
         std::string timeStr = (minutesLeft < 10 ? "0" : "") + std::to_string(minutesLeft)+ ":" + (secondsLeft < 10 ? "0" : "") + std::to_string(secondsLeft);
-        this->u8g2->drawStr(16, 64, timeStr.c_str());
+        this->u8g2->drawStr(16, 44, timeStr.c_str());
+
+        this->u8g2->setFont(u8g2_font_helvB10_tf);
+        std::string volumeStr = std::to_string(this->controller->getOutputVolume()) + " m3/min";
+        this->u8g2->drawStr(16, 64, volumeStr.c_str());
     }
 }

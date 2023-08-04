@@ -59,6 +59,17 @@ uint32_t Controller::getTimeUntilNextEvent() {
     return this->interval - timeSinceLastEvent;
 }
 
+void Controller::setOutputVolume(uint8_t volume, uint32_t interval) {
+    if (volume < 1 || volume > 99) return;
+
+    this->interval = interval;
+    this->duration = volume / (MAX_OUPUT_VOLUME * 1.f) * interval;
+}
+
+uint8_t Controller::getOutputVolume() {
+    return (1.f * this->duration / this->interval) * MAX_OUPUT_VOLUME;
+}
+
 void Controller::process() {
     if (millis() - this->lastUpdate < UPDATE_INTERVAL) return;
     
