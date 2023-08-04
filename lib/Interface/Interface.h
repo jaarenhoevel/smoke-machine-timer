@@ -4,7 +4,7 @@
 #include <Controller.h>
 #include <Machine.h>
 
-#define INTERFACE_UPDATE_INTERVAL   1000
+#define INTERFACE_UPDATE_INTERVAL   100
 
 class Interface {
     public:
