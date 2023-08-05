@@ -37,6 +37,7 @@ bool Machine::activate(uint32_t duration, bool ignoreReady) {
     if (!ignoreReady && !this->isReady()) return false;
     
     if (duration > 0) this->activationTimeout = millis() + duration;
+    else this->activationTimeout = 0;
 
     digitalWrite(this->triggerPin, TRIGGER_SIGNAL);
     this->active = true;
@@ -49,7 +50,7 @@ bool Machine::deactivate() {
 
     digitalWrite(this->triggerPin, NO_TRIGGER_SIGNAL);
     this->active = false;
-    this->activationTimeout = millis();
+    this->activationTimeout = 0;
 
     return true;
 }
