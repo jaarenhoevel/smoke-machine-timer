@@ -13,6 +13,9 @@ Interface::Interface(Controller *controller, Machine *machine, gpio_num_t dataPi
     this->encoder->attachHalfQuad(encoderAPin, encoderBPin);
 
     this->encoder->setCount(0);
+
+    this->encoderBtnPin = encoderBtnPin;
+    pinMode(this->encoderBtnPin, INPUT_PULLUP);
 }
 
 void Interface::process() {    
@@ -32,6 +35,13 @@ void Interface::process() {
         
         this->encoderPos = this->encoder->getCount();
         this->controller->setOutputVolume(this->encoderPos);
+    }
+
+    if (!digitalRead(this->encoderBtnPin) != this->encoderBtnPressed) {
+        this->encoderBtnPressed = !digitalRead(this->encoderBtnPin);
+        
+        if (this->encoderBtnPressed) this->machine->activate(0, true);
+        else this->machine->deactivate();
     }
 
     this->u8g2->clearBuffer();

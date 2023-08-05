@@ -21,6 +21,9 @@ class Interface {
         ESP32Encoder *encoder;
         int64_t encoderPos = 1000;
 
+        gpio_num_t encoderBtnPin;
+        bool encoderBtnPressed = false;
+
         uint32_t lastUpdate = 0;
 
         void drawOverview();
