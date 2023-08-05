@@ -49,6 +49,7 @@ bool Machine::deactivate() {
 
     digitalWrite(this->triggerPin, NO_TRIGGER_SIGNAL);
     this->active = false;
+    this->activationTimeout = millis();
 
     return true;
 }
