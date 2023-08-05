@@ -64,6 +64,8 @@ void Controller::setOutputVolume(uint8_t volume, uint32_t interval) {
 
     this->interval = interval;
     this->duration = volume / (MAX_OUPUT_VOLUME * 1.f) * interval;
+
+    if (this->machine->isActive()) this->machine->deactivate();
 }
 
 uint8_t Controller::getOutputVolume() {

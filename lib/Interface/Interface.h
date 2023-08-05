@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <U8g2lib.h>
+#include <ESP32Encoder.h>
 
 #include <Controller.h>
 #include <Machine.h>
@@ -8,7 +9,7 @@
 
 class Interface {
     public:
-        Interface(Controller *controller, Machine *macghine, gpio_num_t dataPin, gpio_num_t clockPin);
+        Interface(Controller *controller, Machine *macghine, gpio_num_t dataPin, gpio_num_t clockPin, gpio_num_t encoderAPin, gpio_num_t encoderBPin, gpio_num_t encoderBtnPin);
 
         void process();
     
@@ -16,6 +17,9 @@ class Interface {
         Controller *controller;
         Machine *machine;
         U8G2_SSD1306_128X64_NONAME_F_HW_I2C *u8g2;
+
+        ESP32Encoder *encoder;
+        int64_t encoderPos = 1000;
 
         uint32_t lastUpdate = 0;
 
